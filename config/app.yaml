@@ -1,0 +1,9 @@
+baseUrl: '/open'
+development:
+  host: 'http://localhost:9090'
+test:
+  host: 'http://test.meitun.com'
+preproduction:
+  host: 'http://pre.meitun.com'
+production:
+  host: 'http://meitun.com'

@@ -1,0 +1,6 @@
+{
+  "templates": {
+    "component": "src/components",
+    "page": "src/pages"
+  }
+}

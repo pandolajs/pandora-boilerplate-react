@@ -1,0 +1,11 @@
+.idea
+node_modules/
+.vscode
+.vs
+dist/
+.DS_Store
+.pandora/.cache
+npm-debug.log
+package-lock.json
+/package-lock.json
+src/common/config/
