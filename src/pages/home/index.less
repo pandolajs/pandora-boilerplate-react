@@ -7,6 +7,18 @@
 .home-page {
   .name {
     color: blueviolet;
-    font-size: 18px;
+    font-size: 36px;
+  }
+
+  .rect {
+    width: 100px;
+    height: 200px;
+    background: forestgreen;
+    border: 1px solid fade(#00ffdd, 20%);
+
+    &::before {
+      content: 'Hello, before';
+      font-size: 36px;
+    }
   }
 }

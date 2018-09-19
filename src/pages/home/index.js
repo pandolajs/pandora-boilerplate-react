@@ -22,6 +22,7 @@ export default class Home extends Component {
     return (
       <div className={styles['home-page']}>
         <div className={styles.name}>Hello, { name }</div>
+        <div className={styles.rect} />
       </div>
     )
   }

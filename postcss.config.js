@@ -5,10 +5,31 @@
  */
 
 module.exports = () => ({
-  plugins: [
-    require('postcss-media-minmax')(),
-    require('postcss-flexbugs-fixes')(),
-    require('postcss-selector-not')(),
-    require('autoprefixer')()
-  ]
+  plugins: {
+    "postcss-import": {},
+    "postcss-url": {},
+    "postcss-aspect-ratio-mini": {},
+    "postcss-write-svg": {
+      utf8: false
+    },
+    "postcss-px-to-viewport": {
+      viewportWidth: 750,
+      viewportHeight: 1334,
+      unitPrecision: 3,
+      viewportUnit: 'vw',
+      selectorBlackList: ['.ignore', '.hairlines'],
+      minPixelValue: 1,
+      mediaQuery: false
+    },
+    "postcss-viewport-units":{},
+    "cssnano": {
+      preset: "advanced",
+      autoprefixer: false,
+      "postcss-zindex": false
+    },
+    'postcss-media-minmax': {},
+    'postcss-flexbugs-fixes': {},
+    'postcss-selector-not': {},
+    'autoprefixer': {}
+  }
 })

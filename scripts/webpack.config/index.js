@@ -5,11 +5,11 @@
 */
 
 const path = require('path')
+const fs = require('fs')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlInlineSourcePlugin = require('../webpack.plugins/html-webpack-inline-source-plugin')
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const BunderAnalyzerPlugin = require('webpack-bundle-analyzer')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
@@ -21,6 +21,7 @@ const isAnalyze = process.argv.includes('--analyze')
 const rootPath = path.join(__dirname, '../..')
 const srcPath = path.join(rootPath, 'src')
 const entryPath = path.join(srcPath, 'index.js')
+const viewport = path.join(srcPath, 'common/viewport/index.js')
 const templatePath = path.join(srcPath, 'index.html')
 const distPath = path.join(rootPath, 'dist/public')
 
@@ -40,7 +41,10 @@ module.exports = {
   name: 'client',
   target: 'web',
   mode: env === 'development' ? env : 'production',
-  entry: [entryPath],
+  entry: {
+    main: [entryPath],
+    viewport: [viewport]
+  },
   output: {
     path: path.join(distPath, 'assets'),
     publicPath: '/assets/',
@@ -116,12 +120,6 @@ module.exports = {
         ]
       },
       {
-        test: /\.html$/,
-        use: {
-          loader: 'html-loader'
-        }
-      },
-      {
         test: /\.(ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga|ico|jpg|jpeg|png|gif|eot|otf|webp|svg)(\?.*)?$/,
         loader: 'file-loader',
         options: {
@@ -131,37 +129,16 @@ module.exports = {
     ]
   },
 
-  ...(isDev ? {} : {
-    optimization: {
-      minimizer: [
-        new UglifyJsPlugin({
-          cache: true,
-          parallel: true,
-          sourceMap: isDev,
-          uglifyOptions: {
-            ie8: false,
-            compress: {
-              warnings: isVerbose,
-              unused: true,
-              dead_code: true,
-              drop_console: true
-            },
-            output: {
-              beautify: false,
-              comments: false
-            }
-          }
-        }),
-        new OptimizeCSSAssetsPlugin({})
-      ]
-    }
-  }),
-
   plugins: [
     new HtmlWebpackPlugin({
       template: templatePath,
-      filename: '../index.html'
+      filename: '../index.html',
+      inlineSource: {
+        pattern: /viewport(\..+)?\.js$/,
+        position: 'head'
+      }
     }),
+    new HtmlInlineSourcePlugin(),
     new webpack.DefinePlugin({
       _DEV_: isDev
     }),
