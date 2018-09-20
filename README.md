@@ -4,17 +4,13 @@ React SPA project boilerplate for pandolajs.
 
 ## Feature
 
-[x] viewport layout. found more details [here](https://www.w3cplus.com/css/vw-for-layout.html)
-
-[x] React 16.5 +
-
-[x] Redux
-
-[x] eslint
-
-[x] local mock
-
-[x] universal router. found more details [here](https://github.com/pandolajs/generator-pandora-app/blob/master/docs/isomorphic-router.md)
+- [x] viewport layout. found more details [here](https://www.w3cplus.com/css/vw-for-layout.html)
+- [x] React 16.5 +
+- [x] Redux
+- [x] eslint
+- [x] Less
+- [x] local mock
+- [x] universal router. found more details [here](https://github.com/pandolajs/generator-pandora-app/blob/master/docs/isomorphic-router.md)
 
 ## 初始化项目
 
