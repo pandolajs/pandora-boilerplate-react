@@ -16,6 +16,7 @@
     "debug": "node --nolazy --inspect-brk=9229 scripts/run compile"
   },
   "keywords": [
+    "pandora-boilerplate",
     "react",
     "webpack"
   ],
