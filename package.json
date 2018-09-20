@@ -1,6 +1,6 @@
 {
   "name": "@pandolajs/pandora-boilerplate-react",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "react spa project",
   "main": "index.js",
   "scripts": {
