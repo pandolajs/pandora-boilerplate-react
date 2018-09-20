@@ -4,6 +4,6 @@
     "_DEV_": false
   },
   "rules": {
-    "no-console": ["error", { "allow": ["warn", "error"] }]
+    "no-console": ["error", { "allow": ["log", "warn", "error"] }]
   }
 }

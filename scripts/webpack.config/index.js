@@ -34,6 +34,7 @@ const alias = {
   Page: path.join(srcPath, 'pages'),
   Common: path.join(srcPath, 'common'),
   Service: path.join(srcPath, 'services'),
+  Redux: path.join(srcPath, 'redux'),
   config: path.join(srcPath, 'common/config')
 }
 

@@ -13,10 +13,11 @@ export default {
   async action (context, params) {
     const { name } = params
     const { name: apiName } = await test()
+    console.log('router:', name)
     return {
       title: '首页',
       component: (
-        <Home name={apiName || name} />
+        <Home server={apiName || name} />
       )
     }
   }

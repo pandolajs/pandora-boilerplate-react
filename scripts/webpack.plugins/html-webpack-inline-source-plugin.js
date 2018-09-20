@@ -1,7 +1,7 @@
 /**
  * @fileOverview html-webpack-inline-source-plugin
- * @author houquan | houquan@babytree-inc.com
- * @version 1.0.0 | 2018-09-19 | houquan  // 初始版本
+ * @author sizhao | 870301137@qq.com
+ * @version 1.0.0 | 2018-09-19 | sizhao  // 初始版本
 */
 
 var assert = require('assert');

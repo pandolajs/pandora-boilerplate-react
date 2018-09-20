@@ -11,10 +11,13 @@ import history from 'Common/history'
 import iRouter from 'Common/router'
 import App from 'Component/App'
 import { updateMeta } from 'Common/utils'
+import createStore from 'Common/store'
+import { Provider } from 'react-redux'
 
 // app root container
 const appContainer = document.querySelector('#app')
 let currentLoaction = history.location
+const store = createStore()
 
 // 返回恢复页面位置
 const scrollPositionHistory = {}
@@ -85,9 +88,12 @@ async function locationChangeHandler (location, action) {
       return
     }
 
-    ReactDOM.render((<App>{ route.component }</App>),
-      appContainer,
-      () => renderCompleteHandler(route, location))
+    ReactDOM.render((
+      <Provider store={store}>
+        <App>{ route.component }</App>
+      </Provider>
+    ), appContainer,
+    () => renderCompleteHandler(route, location))
   } catch (error) {
     if (_DEV_) {
       const ErrorReporter = await import('redbox-react').then(md => md.default)

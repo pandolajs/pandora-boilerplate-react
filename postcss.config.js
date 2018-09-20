@@ -21,7 +21,7 @@ module.exports = () => ({
       minPixelValue: 1,
       mediaQuery: false
     },
-    "postcss-viewport-units":{},
+    "postcss-viewport-units": { silence: true },
     "cssnano": {
       preset: "advanced",
       autoprefixer: false,
