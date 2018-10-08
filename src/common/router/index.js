@@ -38,14 +38,6 @@ iRouter.catch(({ code, context }) => {
 
 iRouter.use(async (context, next) => {
   const route = await next(context)
-
-  // process title description keywords field undefined to empty string
-  if (route && React.isValidElement(route.component)) {
-    route.title = route.title || ''
-    route.description = route.description || ''
-    route.keywords = route.keywords || ''
-  }
-
   return route
 })
 

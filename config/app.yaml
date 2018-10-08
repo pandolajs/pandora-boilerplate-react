@@ -1,3 +1,4 @@
+name: 'Pandora React App'
 baseUrl: '/open'
 development:
   host: 'http://localhost:9090'

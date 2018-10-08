@@ -21,7 +21,10 @@ module.exports = () => ({
       minPixelValue: 1,
       mediaQuery: false
     },
-    "postcss-viewport-units": { silence: true },
+    "postcss-viewport-units": {
+      silence: true,
+      filterRule: rule => rule.nodes.findIndex(i => i.prop === 'content') === -1
+    },
     "cssnano": {
       preset: "advanced",
       autoprefixer: false,

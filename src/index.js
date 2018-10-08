@@ -13,6 +13,9 @@ import App from 'Component/App'
 import { updateMeta } from 'Common/utils'
 import createStore from 'Common/store'
 import { Provider } from 'react-redux'
+import config from 'config'
+
+const { name: appName = 'Pandora React App' } = config
 
 // app root container
 const appContainer = document.querySelector('#app')
@@ -28,7 +31,7 @@ if (window.history && window.history.scrollRestoration) {
 // 页面渲染完成后，恢复页面历史位置
 let renderCompleteHandler = function initialRenderCompleteHandler () {
   renderCompleteHandler = (route, location) => {
-    const { title = '美囤开放平台', description, keywords } = route
+    const { title = appName, description = '', keywords = '' } = route
     document.title = title
     description && updateMeta('description', description)
     keywords && updateMeta('keywords', keywords)
@@ -77,7 +80,7 @@ async function locationChangeHandler (location, action) {
       locationState,
       query: queryString.parse(search)
     })
-    document.title = route.title
+    document.title = route.title || appName
     // 避免重复渲染
     if (currentLoaction.key !== key) {
       return
