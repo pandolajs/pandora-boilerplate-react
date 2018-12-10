@@ -91,12 +91,22 @@ async function locationChangeHandler (location, action) {
       return
     }
 
-    ReactDOM.render((
-      <Provider store={store}>
-        <App>{ route.component }</App>
-      </Provider>
-    ), appContainer,
-    () => renderCompleteHandler(route, location))
+    if (_DEV_) {
+      const { AppContainer } = await import('react-hot-loader')
+      ReactDOM.render((
+        <Provider store={store} key={Math.random()}>
+          <AppContainer>
+            <App>{ route.component }</App>
+          </AppContainer>
+        </Provider>
+      ), appContainer, () => renderCompleteHandler(route, location))
+    } else {
+      ReactDOM.render((
+        <Provider store={store}>
+          <App>{ route.component }</App>
+        </Provider>
+      ), appContainer, () => renderCompleteHandler(route, location))
+    }
   } catch (error) {
     if (_DEV_) {
       const ErrorReporter = await import('redbox-react').then(md => md.default)
@@ -124,3 +134,13 @@ if (_DEV_) {
 
 history.listen(locationChangeHandler)
 locationChangeHandler(currentLoaction, LOCATION_CHANGE_TYPE.INIT)
+
+if (module.hot) {
+  module.hot.accept(['Common/router', 'Component/App', 'Common/store'], () => {
+    console.log('reload')
+    require('Common/router')
+    require('Component/App')
+    require('Common/store')
+    locationChangeHandler(currentLoaction, LOCATION_CHANGE_TYPE.INIT)
+  })
+}

@@ -23,6 +23,7 @@ module.exports = function (api) {
   ]
 
   const plugins = [
+    'react-hot-loader/babel',
     ['@babel/plugin-proposal-decorators', { legacy: true }],
     '@babel/plugin-proposal-function-sent',
     '@babel/plugin-proposal-export-namespace-from',

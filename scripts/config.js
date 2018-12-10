@@ -34,17 +34,21 @@ function inject (template, injectObj) {
   })
 }
 
+function parser (env = 'development') {
+  const originConfig = yaml.safeLoad(fs.readFileSync(configPath, 'utf8'))
+  const { development, test, preproduction, production, ...commonConfig } = originConfig
+  const envConfig = { development, test, preproduction, production }
+  return {
+    ...commonConfig,
+    ...envConfig[env]
+  }
+}
+
 const config = () => {
   return new Promise((resolve, reject) => {
     const env = process.env.NODE_ENV || 'development'
     try {
-      const originConfig = yaml.safeLoad(fs.readFileSync(configPath, 'utf8'))
-      const { development, test, preproduction, production, ...commonConfig } = originConfig
-      const envConfig = { development, test, preproduction, production }
-      const config = {
-        ...commonConfig,
-        ...envConfig[env]
-      }
+      const config = parser(env)
 
       !fs.existsSync(destConfigPath) && mkdir.sync(destConfigPath)
       const oDate = new Date()
@@ -66,5 +70,7 @@ const config = () => {
     }
   })
 }
+
+config.parser = parser
 
 module.exports = config

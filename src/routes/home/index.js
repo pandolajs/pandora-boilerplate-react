@@ -9,9 +9,9 @@ import Home from 'Page/home'
 import { test } from 'Service/user'
 
 export default {
-  path: '/home/:name',
+  path: '/',
   async action (context, params) {
-    const { name } = params
+    const { name = '' } = params
     const { name: apiName } = await test()
     console.log('router:', name)
     return {
