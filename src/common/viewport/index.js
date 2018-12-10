@@ -1,7 +1,7 @@
 /**
  * @fileOverview viewport buggyfill
- * @author houquan | houquan@babytree-inc.com
- * @version 1.0.0 | 2018-09-19 | houquan  // 初始版本
+ * @author sizhao | 870301137@qq.com
+ * @version 1.0.0 | 2018-09-19 | sizhao  // initial version
 */
 
 import viewportBuggy from 'viewport-units-buggyfill'
