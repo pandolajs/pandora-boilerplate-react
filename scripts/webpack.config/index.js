@@ -23,7 +23,7 @@ const srcPath = path.join(rootPath, 'src')
 const entryPath = path.join(srcPath, 'index.js')
 const viewport = path.join(srcPath, 'common/viewport/index.js')
 const templatePath = path.join(srcPath, 'index.html')
-const distPath = path.join(rootPath, 'dist/public')
+const distPath = path.join(rootPath, 'dist')
 
 /**
  * 1. 避免相对路径的繁琐，设置项目目录别名
@@ -47,15 +47,15 @@ module.exports = {
     viewport: [viewport]
   },
   output: {
-    path: path.join(distPath, 'assets'),
-    publicPath: '/assets/',
+    path: path.join(distPath, 'static'),
+    publicPath: '/static/',
     filename: isDev ? '[name].js' : '[name].[chunkhash:22].js',
     chunkFilename: isDev ? '[id].[name].chunk.js' : '[id].[chunkhash:22].chunk.js'
   },
 
   resolve: {
     alias,
-    mainFields: isDev ? ['module', 'browser', 'main'] : ['browser', 'main']
+    mainFields: ['module', 'browser', 'main']
   },
 
   module: {
@@ -79,7 +79,7 @@ module.exports = {
         },
         include: [
           srcPath,
-          ...isDev ? [/node_modules\/@pandolajs\/(?:isomorphic-router)/] : []
+          [/node_modules\/@pandolajs\/(?:isomorphic-router)/]
         ]
       },
       {
@@ -149,8 +149,8 @@ module.exports = {
         chunkFilename: isDev ? '[id].css' : '[id].[hash].css'
       }),
       new CopyWebpackPlugin([
-        { from: 'public/**/*', to: path.join(rootPath, 'dist') }
-      ])
+        { from: '**/*', to: path.join(rootPath, 'dist') }
+      ], { context: 'public' })
     ],
     ...isAnalyze ? [ new BunderAnalyzerPlugin() ] : []
   ],
