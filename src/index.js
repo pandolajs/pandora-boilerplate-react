@@ -15,7 +15,7 @@ import createStore from 'Common/store'
 import { Provider } from 'react-redux'
 import config from 'config'
 
-const { name: appName = 'Pandora React App' } = config
+const { name: appName = 'Pandora React App', baseUrl } = config
 
 // app root container
 const appContainer = document.querySelector('#app')
@@ -76,7 +76,7 @@ async function locationChangeHandler (location, action) {
   currentLoaction = location
   try {
     const route = await iRouter.resolve({
-      pathname,
+      pathname: `${baseUrl}${pathname}`,
       locationState,
       query: queryString.parse(search)
     })

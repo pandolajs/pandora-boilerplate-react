@@ -1,5 +1,5 @@
 module.exports = {
-  path: '/get/test',
+  path: '/api/test',
   action () {
     return {
       name: 'Google'

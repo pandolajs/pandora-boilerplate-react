@@ -1,10 +1,18 @@
 name: 'Pandora React App'
-baseUrl: '/'
+baseUrl: '/open'
 development:
-  host: 'http://localhost:9090'
+  host:
+    - '^\/api\/test': 'http://localhost:9090'
+    - '^\/api\/': '/'
+  proxy:
+    '/api/(.*)': 'http://test.pandolajs.com'
+  localServerDomain: ''
 test:
-  host: 'http://test.meitun.com'
+  host:
+    - '^\/api\/': 'http://test.pandolajs.com'
 preproduction:
-  host: 'http://pre.meitun.com'
+  host:
+    - '^\/api\/': 'http://pre.pandolajs.com'
 production:
-  host: 'http://meitun.com'
+  host:
+    - '^\/api\/': 'http://api.pandolajs.com'

@@ -100,19 +100,68 @@ React SPA project boilerplate for pandolajs.
 
 定义好 mock 数据就可以在 services 中，通过 fetch('/backend/mock/api', { ...some params }) 方法来获取 mock 数据
 
+如果同一个项目中的不同接口请求的域名不一样，需要可能直接使用线上 mock server 则可以在 config/app.yaml 中配置 host 和 proxy, 详见如下讲解。
+
 ### others
 
 - 目前项目中存在一个全局变量 `_DEV_` 用来表示是否为开发环境，如果未开发环境 `_DEV_` 为 `true`, 否则为 `false`
 
-- 此项目的路由前缀是 `open` 所有在 routes 中定义的路由均需加此前缀才能访问，有如下路由定义：
+- 如果项目在 config/app.yaml 中配置了 baseUrl 为 `open`， 则所有在 routes 中定义的路由均需加此前缀才能访问，有如下路由定义：
 
 ```javascript
   {
-    path: '/home/:name',
+    path: '/',
     action () {
       // some code
     }
   }
 ```
 
-在项目启动后，需要在浏览器中通过 `http://localhost:8080/open/home/test` 才能访问到
+在项目启动后，需要在浏览器中通过 `http://localhost:8080/open` 才能访问到, 同时，通过 history.push 或者 history.replace 进行路由跳转的时候，也不需要添加该前缀，直接 `history.push('/')` 即可跳转到 `/open` 下。
+
+## config/app.yaml 配置详解
+
+app.yaml 中可以添加任意自定义配置字段，内置字段如下：
+
+- name: 项目名
+
+- baseUrl: 项目启动后的 path 前缀，比如项目下的所有页面都位于 /test/ 此目录下，则可以配置 '/test', 否则直接配置 '' 即可
+
+- development / test / preproduction / production: 该字段下的配置为对应环境下的配置，如配置如下字段：
+
+```yaml
+development:
+  host: 'a'
+test:
+  host: 'b'
+preproduction:
+  host: 'c'
+production:
+  host: 'd'
+```
+
+当已开发环境启动时，将构建为如下结果：
+
+```javascript
+{
+  host: 'a'
+}
+```
+
+其他环境以此类推，所以在项目中使用时，直接应用 host 即可，不需要修改源码来适配环境的切换，bug 更少
+
+- host: 可以是一个数组，也可以是一个字符串
+
+当项目中的所有接口都在同一个域名下，直接提供一个字符串即可，如果接口请求的与页面的域名一致，则直接设置 '/' 或者 ''
+
+如果当前项目下不同接口请求的域名不一样（跨域自行解决）, 则可以提供一个数组:
+
+形式如下：
+
+```yaml
+  - <regStr>: <host>
+```
+
+其中 `<regStr>` 为对应接口的正则字符串，`<host>` 为对应的域名
+
+- proxy: 仅需在 development 下配置，用来配置 dev-server 的代理，用来将对应的接口代理到其他服务器下，比如：我需要 a 接口请求某 mock 服务器而非本地 mock server

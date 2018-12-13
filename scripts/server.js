@@ -14,16 +14,28 @@ const koaWebpack = require('koa-webpack')
 const webpack = require('webpack')
 const getPort = require('get-port')
 const OpenBrowserWebpackPlugin = require('open-browser-webpack4-plugin')
+const proxyMiddleware = require('koa2-proxy-middleware')
 
 const appConfig = require('./config').parser
 const rootDir = path.resolve(__dirname, '../')
 const distPath = path.join(rootDir, 'public')
 
-const { baseUrl } = appConfig()
+const { baseUrl, proxy, localServerDomain } = appConfig()
 
 const app = new Koa()
 app.name = 'development-server'
 app.key = ['react']
+
+const targets = {}
+Object.keys(proxy).forEach(key => {
+  targets[key] = {
+    target: proxy[key],
+    changeOrigin: true,
+    cookieDomainRewrite: true
+  }
+})
+
+app.use(proxyMiddleware({ targets }))
 
 app.use(serve(distPath))
 app.use(bodyParser())
@@ -32,7 +44,7 @@ app.use(cookie())
 getPort({
   port: 8080
 }).then(port => {
-  const url = `http://localhost:${port}`
+  const url = localServerDomain ? `${localServerDomain}` : `http://localhost:${port}`
   config.plugins.push(
     new OpenBrowserWebpackPlugin({ url: `${url}${baseUrl}` })
   )

@@ -5,5 +5,10 @@
 */
 
 import createHistory from 'history/createBrowserHistory'
+import config from 'config'
 
-export default createHistory()
+const { baseUrl } = config
+
+export default createHistory({
+  basename: baseUrl
+})
