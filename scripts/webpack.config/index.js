@@ -95,11 +95,7 @@ module.exports = {
               sourceMap: isDev,
               camelCase: true,
               modules: true,
-              localIdentName: isDev ? '[name]-[local]-[hash:base64:5]' : '[hash:base64:5]',
-              minimize: !isDev,
-              discardComments: {
-                removeAll: true
-              }
+              localIdentName: isDev ? '[name]-[local]-[hash:base64:5]' : '[hash:base64:5]'
             }
           },
           {
