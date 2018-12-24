@@ -22,7 +22,7 @@ function mock () {
   app.use(async (context, next) => {
     context.set('Access-Control-Allow-Origin', '*')
     context.set('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-    context.set('Access-Control-Allow-Headers', 'accesstoken,appplatform,appversion,channeltype,deviceid,mccode,refreshtoken,systeminfo')
+    context.set('Access-Control-Allow-Headers', '*')
     await next()
   })
   app.use(bodyParser())
