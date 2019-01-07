@@ -55,7 +55,7 @@ module.exports = {
 
   resolve: {
     alias,
-    mainFields: ['module', 'browser', 'main']
+    mainFields: isDev ? ['module', 'browser', 'main'] : ['main', 'browser', 'module']
   },
 
   module: {

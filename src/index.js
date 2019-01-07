@@ -113,7 +113,6 @@ async function locationChangeHandler (location, action) {
       const { message } = error
       document.title = `Error: ${message}`
       ReactDOM.render(<ErrorReporter error={error} />, appContainer)
-      throw error
     }
     console.error(error)
     if (currentLoaction.key === key) {
@@ -137,7 +136,6 @@ locationChangeHandler(currentLoaction, LOCATION_CHANGE_TYPE.INIT)
 
 if (module.hot) {
   module.hot.accept(['Common/router', 'Component/App', 'Common/store'], () => {
-    console.log('reload')
     require('Common/router')
     require('Component/App')
     require('Common/store')
